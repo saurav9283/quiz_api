@@ -4,28 +4,27 @@ const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
-var fetchuser = require("../middleware/fetchuser");
+var fetchuser = require("../middleware/fetchUser.js");
 
 // const JWT_SECRET = ""
 
 // ROUTE 1 : create a User using POST "/api/auth/createuser". doesn't require Auth
 router.post(
   "/createuser",
-  [
-    body("name").isLength({ min: 3 }),
-    body("email").isEmail(),
-    body("password").isLength({ min: 5 }),
-  ],
+  // [
+  //   body("name").isLength({ min: 3 }),
+  //   body("email").isEmail(),
+  //   body("password").isLength({ min: 5 }),
+  // ],
   async (req, res) => {
+    console.log(req.body)
     var success = false;
-    // If there are errors, return that req and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
     try {
-      // check whether the user with this email exists already
       let user = await User.findOne({ email: req.body.email });
       if (user) {
         return res
