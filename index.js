@@ -7,7 +7,6 @@ const port = 8000
 app.use(cors())
 app.use(express.json())
 connectToMongo();
-app.get("/", "api working")
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/quiz', require('./routes/quiz'))
 
