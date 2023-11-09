@@ -1,11 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const mongoURI = 'mongodb+srv://saurav:saurav@cluster0.lydlfoa.mongodb.net/?retryWrites=true&w=majority'
+const url = 'mongodb+srv://saurav:saurav@cluster0.lydlfoa.mongodb.net/QuizGame?retryWrites=true&w=majority';
 
-const connectToMongo = () => {
-    mongoose.connect(mongoURI, ()=>{
-        console.log('connected to mongo Successfully')
+const connectDB=() => {
+  mongoose
+    .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+      console.log("🗃️  Database connected successfully");
     })
-}
+    .catch((err) => {
+      console.log("Database connection failed", err);
+    });
+};
 
-module.exports = connectToMongo;
+module.exports = connectDB;
